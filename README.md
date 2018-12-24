@@ -5,7 +5,7 @@ This is a fork of https://github.com/flokkr/docker-hadoop but with some addition
 
 * `install-docker.sh` script to automate `docker` and `docker-compose` installation
 * `restart-policy` configured to `always`, to autostart cluster after machine reboots
-* all data mappaed to docker-vloumes
+* all data mapped to docker-volumes.
 
 # Get started
 
@@ -48,4 +48,4 @@ exit
 To kill containers execute: `docker-compose down`
 This will delete all associated data volumes also.
 
-See [README-hadoop.md] for original docs.
+See [README-hadoop.md]() for original docs.
