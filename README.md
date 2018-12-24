@@ -1,48 +1,27 @@
-# Apache Hadoop docker images
+# Docker-hadoop
+This is a fork of https://github.com/flokkr/docker-hadoop but with some additional scripts.
 
-These images are part of the bigdata [docker image series](https://github.com/flokkr). All of the images use the same [base docker image](https://github.com/flokkr/docker-baseimage) which contains advanced configuration loading. 
+#Changes:
 
-It supports configuration based on environment variables (using specific naming convention), downloaded from consul and other plugins (for example to generate kerberos keystabs).
+* `install-docker.sh` script to automate `docker` and `docker-compose` installation
+* `restart-policy` configured to `always`, to autostart cluster after machine reboots
+* all data mappaed in `vloumes` folder
 
-For more detailed instruction to configure the images see the [README](https://github.com/flokkr/docker-base/blob/master/README.md) in the flokkr/docker-base repository.
+#Get started
 
-## Getting started
+1) Install `docker` and `docker-compose` (if not installed, you'll need sudo rights): `bash install-docker.sh`
+2) Run hadoop cluster: `docker-compose up -d`
 
-### Run
+##Exposet ports:
 
-The easiest way to run a storm cluster is just use the included ```docker-compose.yaml``` file. 
+### Namenode:
+*localhost:9870
+*localhost:50070
 
-Checkout the repository and do a ```docker-compose up -d``` The storm UI will be available at http://localhost:8080
+### Resourcemanager:
+*localhost:8088
 
-You can adjust the settings in the compose-config file.
+#Shut-down
+To kill containers execute: `docker rm -f $(docker ps -a | grep dockerhadoop | awk '{print $1};')`
 
-To scale up datanode/namenode:
-
-```
-docker-compose scale datanode=3
-```
-
-To check namenode/resourcemanager use the published ports:
-
-* Resourcemanager: http://localhost:8080
-* Namenode: http://localhost:50070 (in case of hadoop 2.x)
-
-### Smoketest
-
-```
-docker-compose exec resourcemanager /opt/hadoop/bin/yarn jar /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.1.jar pi 16 1000
-
-### Cluster
-
-For more detailed examples check the other repositories under the flokkr organization with [runtime-](https://github.com/search?q=org%3Aflokkr+runtime) prefix.
-
-There are more detailed examples with using:
-
-* [docker-compose](https://github.com/flokkr/runtime-compose) (single-host)
-* [docker-swarm](https://github.com/flokkr/runtime-swarm)
-* [consul and docker-compose](https://github.com/flokkr/runtime-consul)  (multi-host)
-* [consul and nomad](https://github.com/flokkr/runtime-nomad) (multi-host)
-* [kubernetes](https://github.com/flokkr/runtime-kubernetes)
-
-
-
+See [README-hadoop.md] for original docs.
