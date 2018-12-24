@@ -1,18 +1,18 @@
 # Docker-hadoop
 This is a fork of https://github.com/flokkr/docker-hadoop but with some additional scripts.
 
-#Changes:
+# Changes:
 
 * `install-docker.sh` script to automate `docker` and `docker-compose` installation
 * `restart-policy` configured to `always`, to autostart cluster after machine reboots
 * all data mappaed to docker-vloumes
 
-#Get started
+# Get started
 
 1) Install `docker` and `docker-compose` (if not installed, you'll need sudo rights): `bash install-docker.sh`
 2) Run hadoop cluster: `docker-compose up -d`
 
-##Exposet ports:
+## Exposed ports:
 
 ### Namenode:
 * localhost:9870
@@ -44,7 +44,7 @@ cat mytest.txt # downloaded file
 exit
 
 ```
-#Shut-down
+# Shut-down
 To kill containers execute: `docker-compose down`
 This will delete all associated data volumes also.
 
