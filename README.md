@@ -5,7 +5,7 @@ This is a fork of https://github.com/flokkr/docker-hadoop but with some addition
 
 * `install-docker.sh` script to automate `docker` and `docker-compose` installation
 * `restart-policy` configured to `always`, to autostart cluster after machine reboots
-* all data mappaed in `vloumes` folder
+* all data mappaed to docker-vloumes
 
 #Get started
 
@@ -15,13 +15,37 @@ This is a fork of https://github.com/flokkr/docker-hadoop but with some addition
 ##Exposet ports:
 
 ### Namenode:
-*localhost:9870
-*localhost:50070
+* localhost:9870
+* localhost:50070
 
 ### Resourcemanager:
-*localhost:8088
+* localhost:8088
 
+## Test the cluster:
+
+```bash
+# Login into hadoop namenode container
+
+docker exec -ti $(docker ps -a | grep namenode | awk '{print $1}') bash
+
+# Create test file
+
+echo testfile > test.txt
+
+# Upload and download file from hadoop
+
+hadoop fs -put test.txt /mytest.txt
+hadoop fs -get /mytest.txt mytest.txt
+
+# Verify that files are equal
+
+cat test.txt # uploaded file
+cat mytest.txt # downloaded file
+exit
+
+```
 #Shut-down
-To kill containers execute: `docker rm -f $(docker ps -a | grep dockerhadoop | awk '{print $1};')`
+To kill containers execute: `docker-compose down`
+This will delete all associated data volumes also.
 
 See [README-hadoop.md] for original docs.
