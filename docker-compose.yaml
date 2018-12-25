@@ -1,11 +1,11 @@
 version: "2"
-volumes:
-  hadoop-namenode-opt:
-  hadoop-namenode-tmp:
-  hadoop-datanode-opt:
-  hadoop-datanode-tmp:
-  hadoop-rm-opt:
-  hadoop-nm-opt:
+#volumes:
+#  hadoop-namenode-opt:
+#  hadoop-namenode-tmp:
+#  hadoop-datanode-opt:
+#  hadoop-datanode-tmp:
+#  hadoop-rm-opt:
+#  hadoop-nm-opt:
 services:
    namenode:
       image: flokkr/hadoop:latest
@@ -20,9 +20,9 @@ services:
       environment:
           NAMENODE_INIT: "hdfs dfs -chmod 777 /"
           ENSURE_NAMENODE_DIR: "/tmp/hadoop-hadoop/dfs/name"
-      volumes:
-        - hadoop-namenode-opt:/opt/hadoop
-        - hadoop-datanode-tmp:/tmp
+#      volumes:
+#        - hadoop-namenode-opt:/opt/hadoop
+#        - hadoop-datanode-tmp:/tmp
 
    datanode:
       command: ["hdfs","datanode"]
@@ -30,9 +30,9 @@ services:
       restart: always
       env_file:
         - ./compose-config
-      volumes:
-        - hadoop-datanode-opt:/opt/hadoop
-        - hadoop-datanode-tmp:/tmp
+#      volumes:
+#        - hadoop-datanode-opt:/opt/hadoop
+#        - hadoop-datanode-tmp:/tmp
 
    resourcemanager:
       image: flokkr/hadoop:latest
@@ -43,8 +43,8 @@ services:
          - 8088:8088
       env_file:
         - ./compose-config
-      volumes:
-        - hadoop-rm-opt:/opt/hadoop:rw
+#      volumes:
+#        - hadoop-rm-opt:/opt/hadoop:rw
 
    nodemanager:
       image: flokkr/hadoop-yarn-nodemanager:latest
@@ -52,6 +52,6 @@ services:
       command: ["yarn", "nodemanager"]
       env_file:
         - ./compose-config
-      volumes:
-        - hadoop-nm-opt:/opt/hadoop
+#      volumes:
+#        - hadoop-nm-opt:/opt/hadoop
 
