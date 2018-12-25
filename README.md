@@ -44,6 +44,22 @@ cat mytest.txt # downloaded file
 exit
 
 ```
+
+## To scale up datanode/namenode:
+
+```bash
+docker-compose scale datanode=3
+```
+
+## To print info about cluster
+
+```bash
+docker exec -ti $(docker ps -a | grep namenode | awk '{print $1}') bash
+hdfs dfsadmin -report
+exit
+```
+
+
 # Shut-down
 To kill containers execute: `docker-compose down`
 This will delete all associated data volumes also.
